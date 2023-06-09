@@ -1,0 +1,155 @@
+package OnlineDisk_Search;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class test {
+    static ArrayList<ArrayList<String>>files_msg=new ArrayList<>();
+    static String add_Str;
+    public static void main(String[] args) throws Exception {
+        String msg_url="http://43.248.98.113:10000/api/fs/list";
+        String savePath= "";
+        URL url = new URL(msg_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        int responseCode = conn.getResponseCode();
+        if (responseCode == 200) {
+            InputStream inputStream = conn.getInputStream();
+            //FileOutputStream fileOutputStream = new FileOutputStream(savePath);
+            ByteArrayOutputStream bs=new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                bs.write(buffer, 0, length);
+                //fileOutputStream.write(buffer, 0, length);
+            }
+            String return_code=new String(bs.toByteArray(),StandardCharsets.UTF_8);
+            Pattern pattern1=Pattern.compile("\"name\":\\s*\"([^\"]+)\"");
+            Pattern pattern2=Pattern.compile("\"size\":\\s*(\\d+)");
+            Pattern pattern3=Pattern.compile("\"is_dir\":\\s*(true|false)");
+            Pattern pattern4=Pattern.compile("\"sign\":\"(.*?)\"");
+            Matcher matcher1=pattern1.matcher(return_code);
+            Matcher matcher2=pattern2.matcher(return_code);
+            Matcher matcher3=pattern3.matcher(return_code);
+            Matcher matcher4=pattern4.matcher(return_code);
+            while(matcher1.find()&&matcher2.find()&&matcher3.find()&&matcher4.find()) {
+                String name=matcher1.group(1);
+                String size=matcher2.group(1);
+                String is_dir=matcher3.group(1);
+                String sign=matcher4.group(1);
+                //System.out.println(name+"---"+size+"---"+is_dir+"---"+sign);
+                if(Integer.parseInt(size)>0||is_dir.equals("false")){
+                    ArrayList<String>file_msg=new ArrayList<>();
+                    file_msg.add(name);
+                    file_msg.add(sign);
+                    files_msg.add(file_msg);
+                }else{
+                    if(is_dir.equals("true") ){
+                        add_Str="/";
+                        search_file(msg_url,name);
+                        System.out.println(files_msg);
+                        while(files_msg.size()>0){
+                            savePath="E://test/";
+                            savePath+=files_msg.get(0).get(0);
+                            String file_url="http://43.248.98.113:10000"+"/d"+add_Str+URLEncoder.encode(files_msg.get(0).get(0),"UTF-8").replaceAll("\\+","%20")+"?sign="+files_msg.get(0).get(1);
+                            System.out.println(file_url);
+                            //download_files(file_url,savePath);
+                            files_msg.remove(0);
+                        }
+                    }          
+                }
+            }
+            while(files_msg.size()>0){
+                savePath="E://test/";
+                savePath+=files_msg.get(0).get(0);
+                String file_url="http://43.248.98.113:10000"+"/d/"+URLEncoder.encode(files_msg.get(0).get(0),"UTF-8").replaceAll("\\+","%20")+"?sign="+files_msg.get(0).get(1);
+                //System.out.println(file_url);
+                download_files(file_url,savePath);
+                files_msg.remove(0);
+            }
+            //System.out.println(files_msg);
+            //fileOutputStream.close();
+            inputStream.close();
+            System.out.println("文件下载完成");
+        } else {
+            System.out.println("文件下载失败");
+        }
+        conn.disconnect();
+    }
+    static void search_file(String msg_url,String _name) throws Exception{
+        add_Str+=_name+"/";
+        URL url=new URL(msg_url);
+        HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setUseCaches(false);
+        conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+        String payloadString = "{\"path\":\""+add_Str+"\"}";
+        OutputStreamWriter osp=new OutputStreamWriter(conn.getOutputStream());
+        osp.write(payloadString);
+        osp.flush();
+        osp.close();
+        int responseCode=conn.getResponseCode();
+        if (responseCode==200) {
+            InputStream inputStream = conn.getInputStream();
+            ByteArrayOutputStream bs=new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                bs.write(buffer, 0, length);
+            }
+            String return_code=new String(bs.toByteArray(),StandardCharsets.UTF_8);
+            Pattern pattern1=Pattern.compile("\"name\":\\s*\"([^\"]+)\"");
+            Pattern pattern2=Pattern.compile("\"size\":\\s*(\\d+)");
+            Pattern pattern3=Pattern.compile("\"driver\":\"(.*?)\"");
+            Matcher matcher1=pattern1.matcher(return_code);
+            Matcher matcher2=pattern2.matcher(return_code);
+            Matcher matcher3=pattern3.matcher(return_code);
+            matcher3.find();
+            while(matcher1.find()&&matcher2.find()&&matcher3.find()) {
+                String name=matcher1.group(1);
+                String size=matcher2.group(1);
+                String driver=matcher3.group(1);
+                if(Integer.parseInt(size)>0){
+                    ArrayList<String>file_msg=new ArrayList<>();
+                    file_msg.add(name);
+                    file_msg.add(size);
+                    files_msg.add(file_msg);
+                }else{
+                    if(driver.equals("Native"))
+                    search_file(msg_url,name);
+                }
+            }
+            conn.disconnect();
+        }
+    }
+    static void download_files(String file_url,String save_url) throws Exception{
+        URL url=new URL(file_url);
+        HttpURLConnection con=(HttpURLConnection)url.openConnection();
+        con.setRequestMethod("GET");
+        int responseCode=con.getResponseCode();
+        if(responseCode==200){
+            InputStream inputStream=con.getInputStream();
+            FileOutputStream fops=new FileOutputStream(save_url);
+            byte[] buffer=new byte[1024];
+            int len;
+            while((len=inputStream.read(buffer))!=-1){
+                fops.write(buffer,0,len);
+            }
+            fops.flush();
+            fops.close();
+        }else{
+            System.out.println("文件下载地址错误");
+        }
+        con.disconnect();
+    }
+}
