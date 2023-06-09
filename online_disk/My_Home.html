@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="always" name="referrer">
+    <meta name="description" content="Welcome to the web_disk search engine MyHome page,here you can modify your profile and view your usage history">
+    <link rel="icon" sizes="any" mask href="http://localhost/image/online_disk.png">
+    <link rel="stylesheet" href="./css/My_Home.css">
+    <script src="./js/sha256.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./js/My_Home.js"></script>
+    <title>My_Home</title>
+</head>
+<body onload="load_page()">
+    <div class="container">
+        <div class="head">
+            <div id="head_left">
+                <a href="http://localhost/online_disk/search_resource.html" target="_blank" draggable="false">
+                    <img id="img1" src="https://img.tukuppt.com/png_preview/00/60/94/Pm67jf3TOu.jpg!/fw/780" draggable="false">
+                </a>
+                <img id="img2" src="https://ts1.cn.mm.bing.net/th/id/R-C.d7440a36043f066dfa1e16e5ea20fc67?rik=A6ZTIpzSqgx7xA&riu=http%3a%2f%2fpic.616pic.com%2fys_img%2f00%2f06%2f91%2fUixP2GnTxF.jpg&ehk=YG1Vwxer05p9H270IKgrRQZrFw2rBsS3D8siJn8uTCU%3d&risl=&pid=ImgRaw&r=0" draggable="false">
+                <span id="txt1">My Home</span>
+            </div>
+            <div id="head_right">
+                <a id="a_m_" href="" draggable="false" onmouseover="a_m2()" onmouseleave="a_m1()" onclick="show_am()">
+                    <img id="a_m" src="/image/ask1.png" draggable="false">
+                </a>
+                <span id="am_tip1"></span>
+                <div id="am_g">
+                    <div id="am_block">
+                        <span id="am_title">Ask Message</span>
+                        <span id="am_tip">tip:Requests that have not been processed after 24 hours will be deleted</span>
+                        <a id="cha_cha_am_" href="" draggable="false" onclick="cha_cha_am()">
+                            <img id="cha_cha_am" src="http://localhost/image/xx.png" draggable="false">
+                        </a>
+                        <div id="amf_block">
+                            <ul id="am_list"></ul>
+                        </div>
+                        <div id="am_click_af">
+                            <a id="reback_" href="" draggable="false" onclick="back_last3()">
+                                <img id="reback" src="/image/fh.png" draggable="false">
+                            </a>
+                            <span id="show_am"></span>
+                            <span id="show_am1"></span>
+                            <span id="show_am2"></span>
+                            <span id="show_am3"></span>
+                            <span id="show_am4"></span>
+                        </div>
+                    </div>
+                </div>
+                <a id="msg_" href="" draggable="false" onmouseover="msg2()" onmouseleave="msg1()" onclick="show_msg()">
+                    <img id="msg" src="/image/msg1.png" draggable="false">
+                </a>
+                <span id="msg_tip"></span>
+                <div id="msg_backg">
+                    <div id="msg_block">
+                        <a id="fanhui_" href="" draggable="false" onclick="go_fh()">
+                            <img id="fanhui" src="/image/fh.png" draggable="false">
+                        </a>
+                        <a id="cha_cha_m_" href="" draggable="false" onclick="cha_cha_m()">
+                            <img id="cha_cha_m" src="http://localhost/image/xx.png" draggable="false">
+                        </a>
+                        <span id="mail_title">My Email</span>
+                        <a id="w_mail_" href="" draggable="false" onclick="go_w()">
+                            <span id="w_mail">Write Email</span>
+                        </a>
+                        <a id="s_mail_" href="" draggable="false" onclick="go_s()">
+                            <span id="s_mail">Aready Sent</span>
+                        </a>
+                        <a id="r_mail_" href="" draggable="false" onclick="go_r()">
+                            <span id="r_mail">Receive Email</span>
+                        </a>
+                        <div id="w_block">
+                            <span id="post_u">Sender:</span>
+                            <span id="post_u_id"></span>
+                            <span id="get_u">Receiver:</span>
+                            <input id="get_u_id" maxlength="20">
+                            <span id="post_txt">Post context(Can`t over 200 varchar)</span>
+                            <textarea id="post_context" oninput="get_len()"></textarea>
+                            <span id="len_tip"></span>
+                            <button id="p_w" onclick="post_text()">POST</button>
+                            <div id="back_tip_g">
+                                <div id="back_tip">
+                                    <span id="back_tip_title">Do you need to save your edited content before exiting?</span>
+                                    <button id="back_tip_y">YES</button>
+                                    <button id="back_tip_n">NO</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="send_af">
+                            <img id="saf_img" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.J0FQV0kbv8rK73Ca9p7IBwHaF6?pid=ImgDet&rs=1" draggable="false">
+                            <span id="saf_txt">your email already sent successfully</span>
+                            <button id="back_w" onclick="w_again()">Write Agian</button>
+                            <button id="back_o" onclick="back_o()">Back Email</button>
+                        </div>
+                        <div id="asend_block">
+                            <ul id="asend_list"></ul>
+                        </div>
+                        <div id="s_click_af">
+                            <a id="reback_" href="" draggable="false" onclick="back_last1()">
+                                <img id="reback" src="/image/fh.png" draggable="false">
+                            </a>
+                            <span id="show_s1"></span>
+                            <span id="show_r1"></span>
+                            <span id="show_t1"></span>
+                            <div id="show_c1"></div>
+                            <button id="q_w1" onclick="go_write1()">Again Write</button>
+                            <button id="d_e1" onclick="de_email1()">Delete Email</button>
+                            <div id="s_g">
+                                <div id="de_tip1">
+                                    <span id="de_title1">Are you sure delete the email?</span>
+                                    <button id="de_y1">YES</button>
+                                    <button id="de_n1">NO</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="r_block">
+                            <ul id="rec_list"></ul>
+                        </div>
+                        <div id="r_click_af">
+                            <a id="reback_" href="" draggable="false" onclick="back_last2()">
+                                <img id="reback" src="/image/fh.png" draggable="false">
+                            </a>
+                            <span id="show_s2"></span>
+                            <span id="show_r2"></span>
+                            <span id="show_t2"></span>
+                            <div id="show_c2"></div>
+                            <button id="q_w2" onclick="go_write2()">Back Email</button>
+                            <button id="d_e2" onclick="de_email2()">Delete Email</button>
+                            <div id="r_g">
+                                <div id="de_tip2">
+                                    <span id="de_title2">Are you sure delete the email?</span>
+                                    <button id="de_y2">YES</button>
+                                    <button id="de_n2">NO</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="" draggable="false" onmouseover="show_block()" onmouseleave="hidden_block()" onclick="pp()">
+                    <img id="img22" draggable="false">
+                    <span id="img2_txt"></span>
+                </a>
+                <div id="set_block" onmouseover="show_block()" onmouseleave="hidden_block()" onmousemove="clear_color()">
+                    <a href="" draggable="false" onclick="go_block1()">
+                        <span id="txt2">Set My Info</span>
+                    </a>
+                    <a href="" draggable="false" onclick="go_block2()">
+                        <span id="txt3">Change User</span>
+                    </a>
+                    <a href="" draggable="false" onclick="go_block3()">
+                        <span id="txt4">Exit</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div id="body_left">
+                <a href="" draggable="false" onclick="set_info()">
+                    <img id="img3" draggable="false">
+                    <span id="txt5"></span>
+                </a>
+                <div id="function_module">
+                    <a id="module1" href="" draggable="false" onmouseover="show_color1()" onmouseleave="hidden_color1()" onclick="go_sc()">
+                        <img id="module1_img" src="/image/sc1.png" draggable="false">
+                        <span id="module1_txt">Collection</span>
+                    </a>
+                    <a id="module2" href="" draggable="false" onmouseover="show_color2()" onmouseleave="hidden_color2()" onclick="go_jl()">
+                        <img id="module2_img" src="/image/jl1.png" draggable="false">
+                        <span id="module2_txt">Download Record</span>
+                    </a>
+                    <a id="module3" href="" draggable="false" onmouseover="show_color3()" onmouseleave="hidden_color3()" onclick="go_gl()">
+                        <img id="module3_img" src="/image//yhgl1.png" draggable="false">
+                        <span id="module3_txt">Manage User</span>
+                    </a>
+                </div>
+            </div>
+            <div id="body_right">
+                <span id="txt6"></span>
+                <div id="module_context">
+                    <div id="collection_item" >
+                        <a id="c_bf" draggable="false" href="" onclick="show_cinput()">
+                            <img id="c_search_bf" src="/image/ss1.png" draggable="false">
+                        </a>
+                        <img id="c_search_af" src="/image/ss2.png" draggable="false">
+                        <input id="collection_search" type="text" placeholder="Search Record" maxlength="100" oninput="c_in()" onblur="h_c()">
+                        <ul id="collection_list"></ul>
+                    </div>
+                    <div id="download_item">
+                        <a id="d_bf" draggable="false" href="" onclick="show_dinput()">
+                            <img id="d_search_bf" src="/image/ss1.png" draggable="false">
+                        </a>
+                        <img id="d_search_af" src="/image/ss2.png" draggable="false">
+                        <input id="download_search" type="text" placeholder="Search Record" maxlength="100" oninput="d_in()" onblur="h_d()">
+                        <ul id="download_list"></ul>
+                    </div>
+                    <div id="manageuser_item">
+                        <a id="u_bf" draggable="false" href="" onclick="show_uinput()">
+                            <img id="u_search_bf" src="/image/ss1.png" draggable="false">
+                        </a>
+                        <img id="u_search_af" src="/image/ss2.png" draggable="false">
+                        <input id="user_search" type="text" placeholder="Search user" maxlength="100" oninput="u_in()" onblur="h_u()">
+                        <ul id="user_list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body2">
+            <img id="xg_tx" draggable="false">
+            <a href="" draggable="false" onclick="change_image()">
+                <span id="xg_tx_h">Modify Profile Image</span>
+            </a>
+            <input type="file" id="open_file" style="display:none;">
+            <a id="off_h" href="" draggable="false" onclick="del_acc()">
+                <span id="off">logoff</span>
+            </a>
+            <div id="off_background">
+                <div id="off_block">
+                    <a href="" draggable="false" onclick="cha_cha_off()">
+                        <img id="cha_cha_off" src="http://localhost/image/xx.png" draggable="false">
+                    </a>
+                    <span id="exit_title_off">Are you sure logoff your account?</span>
+                    <span id="exit_txt_off">When you log out of your account, you will no longer be able to log in to this website using that account, and all of your records will be cleared</span>
+                    <a href="" draggable="false" onclick="off_no()">
+                        <input id="off_cancel" type="button" value="Cancel">
+                    </a>
+                    <span id="djs"></span>
+                    <a href="" draggable="false" onclick="off_ok()">
+                        <input id="off_confirm" type="button" value="Confirm">
+                    </a>
+                </div>
+            </div>  
+            <span id="xg_yhm_h">Modify UserName</span>
+            <input name="yhm" type="text" id="xg_yhm" maxlength="14" placeholder="set your UserName" onfocus="_color1()" onblur="check_yhm()" oninput="_color11()">
+            <span id="input_error_tip1"></span>
+            <span id="xg_mm_h">Modify PassWord</span>
+            <input name="mm" type="password" id="xg_mm" maxlength="20" placeholder="set your PassWord" onfocus="_color2()" onblur="check_mm()" oninput="_color22()">
+            <span id="input_error_tip2"></span>
+            <input type="password" id="qr_mm" maxlength="20" placeholder="confrim your PassWord" onfocus="_color3()" onblur="check_mm2()" oninput="_color33()">
+            <span id="input_error_tip3"></span>
+            <span id="xg_dh_h">Modify Phone</span>
+            <input name="phone" type="tel" id="xg_dh" maxlength="11" placeholder="input your PhoneNumber" onfocus="_color4()" onblur="check_phone()" oninput="_color44()">
+            <span id="input_error_tip4"></span>    
+            <button id="bc" value="Save" onclick="go_save()">Save</button>
+            <button id="fq" onclick="go_back()">Cancel</button>
+        </div>
+        <div id="under_face">
+            <div id="resigter_login" draggable="false">
+                <p id="login_title">Login</p>
+                <a style="width:100%;height:100%;" href="" draggable="false" onclick="cha_cha()">
+                    <img id="cha_cha" src="http://localhost/image/xx.png" draggable="false">
+                </a>
+                    <span id="zhanghu">UserName</span>
+                <input type="text" id="acc" placeholder="UserName" oninput="show_font()">
+                <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_acc()">
+                    <img id="acc_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp2">
+                    <map name="mp2" id="mp2">
+                        <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget account?you can try to contatc me~ QQ:2475469504">
+                    </map>
+                </a>
+                <span id="mima">Password</span>
+                <input type="password" id="psw" placeholder="Password" oninput="show_font2()">
+                <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_psw()">
+                    <img id="psw_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp3">
+                    <map name="mp3" id="mp3">
+                        <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget password?you can try to contatc me~ QQ:2475469504">
+                    </map>
+                </a>
+                <a style="width:100%;height:100%;" href="" draggable="false" onclick="login_verify()">
+                    <button id="denglu" value="Login">Login</button>
+                </a>
+                <a style="width:100%;height:100%;" href="" draggable="false" onclick="_reset()">
+                    <button id="chongzhi" value="Reset" type="reset">Reset</button>
+                </a>   
+            </div>
+        </div>
+        <div id="back_page">
+            <div id="exit_tip">
+                <a href="" draggable="false" onclick="cha_cha2()">
+                    <img id="cha_cha2" src="http://localhost/image/xx.png" draggable="false">
+                </a>
+                <span id="exit_title">Are you sure exitting your account?</span>
+                <span id="exit_txt">When you exit later , you will lose function of getting resources</span>
+                <a href="" draggable="false" onclick="exit_no()">
+                    <input id="_cancel" type="button" value="Cancel">
+                </a>
+                <a href="" draggable="false" onclick="exit_yes()">
+                    <input id="_confirm" type="button" value="Confirm">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

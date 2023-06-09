@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="always" name="referrer">
+    <meta name="description" content="This is a web disk search engine website, used to retrieve web disk resources for users to quickly and easily download learning resources">
+    <link rel="icon" sizes="any" mask href="http://localhost/image/online_disk.png">
+    <link rel="stylesheet" href="./css/search_resource.css">
+    <title>Web_Disk Resource Search</title>
+    <script src="./js/sha256.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./js/search_resource.js"></script>
+</head>
+<body onload="getLoaction()">
+    <div class="container">
+        <div class="help_link">
+            <a href="https://www.baidu.com/" target="_blank" id="baidu_flag" draggable="false">Baidu</a>
+            <a href="https://www.google.com.hk/index.html" target="_blank" id="google_flag" draggable="false">Google</a>
+            <a href="https://cn.bing.com/" target="_blank" id="biying_flag" draggable="false">Biying</a>
+            <a href="https://www.shodan.io/" target="_blank" id="shodan_flag" draggable="false">Shodan</a>
+            <a href="https://github.com" target="_blank" id="github_flag" draggable="false">Github</a>
+            <a href="https://stackoverflow.co" target="_blank" id="stackoverflow_flag" draggable="false">Stackoverflow</a>
+        </div>
+        <div class="search_block">
+            <div class="search_flag">
+                <img id="search_icon" src="https://img.tukuppt.com/png_preview/00/60/94/Pm67jf3TOu.jpg!/fw/780" draggable="false" usemap="#mp">
+                <map name="mp" id="mp1">
+                    <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,300,150" href="http://localhost/online_disk/search_resource.html" title="onclick me to refresh">
+                </map>
+            </div>
+            <div class="search_input">
+                <form>
+                    <span>
+                        <input type="text" id="input_search" maxlength="100" oninput="search_back()" onblur="hidden_result()" onfocus="check_result()">
+                    </span>
+                    <div id="searchResult">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                        <input type="hidden">
+                    </div>
+                    <span>
+                        <input type="submit" value="Go" id="goto_search">
+                    </span>
+            </div>
+        </div>
+        <div class="weather_User" draggable="false">
+            <div class="weather" draggable="false" onmouseover="show_block()" onmouseleave="hidden_block()">
+                <a id="set_weather" href="" target="_blank" draggable="false">
+                <span id="city" draggable="false">北京</span>
+                <img id="weather_img" src="" draggable="false">
+                <span id="temp" draggable="false">18℃</span>
+                </a>
+            </div>
+            <div id="check_weather" draggable="false" onmouseover="show_block()" onmouseleave="hidden_block()">
+                <div id="later_weather_head">
+                    <span id="yl_date"></span>
+                    <a id="w_forcast" target="_blank" draggable="false">Nextdays Weather </a>
+                    <img id="change_icon" src="http://localhost/image/location.png" draggable="false">
+                    <a id="change_city" href="" onclick="change_city()">Change</a>   
+                </div>
+                <div id="later_weather_body" draggable="false" onmousemove="set_ad1()" onmouseenter="set_ad1()">
+                    <div id="later_weather_condition1">
+                        <a id="wl_1" href="" target="_blank" draggable="false">
+                            <span id="wl_date1" ></span>
+                            <img id="wl_icon1" draggable="false">
+                            <span id="wl_temp1"></span>
+                            <span id="wl_condition1"></span>
+                            <span id="wl_wind1"></span>
+                        </a>
+                    </div>
+                    <div id="later_weather_condition2" draggable="false">
+                        <a id="wl_2" href="" target="_blank" draggable="false">
+                            <span id="wl_date2"></span>
+                            <img id="wl_icon2" draggable="false">
+                            <span id="wl_temp2"></span>
+                            <span id="wl_condition2"></span>
+                            <span id="wl_wind2"></span>
+                        </a>
+                    </div>
+                    <div id="later_weather_condition3" draggable="false">
+                        <a id="wl_3" href="" target="_blank" draggable="false">
+                            <span id="wl_date3"></span>
+                            <img id="wl_icon3" draggable="false">
+                            <span id="wl_temp3"></span>
+                            <span id="wl_condition3"></span>
+                            <span id="wl_wind3"></span>
+                        </a>
+                    </div>
+                    <div id="later_weather_condition4" draggable="false">
+                        <a id="wl_4" href="" target="_blank" draggable="false">
+                            <span id="wl_date4"></span>
+                            <img id="wl_icon4" draggable="false">
+                            <span id="wl_temp4"></span>
+                            <span id="wl_condition4"></span>
+                            <span id="wl_wind4"></span>
+                        </a>
+                    </div>
+                    <div id="later_weather_condition5" draggable="false">
+                        <a id="wl_5" href="" target="_blank" draggable="false">
+                            <span id="wl_date5"></span>
+                            <img id="wl_icon5" draggable="false">
+                            <span id="wl_temp5"></span>
+                            <span id="wl_condition5"></span>
+                            <span id="wl_wind5"></span>
+                        </a>
+                    </div>
+                </div>
+                <div id="choose_city" draggable="false" onmousemove="set_ad2()" onmouseenter="set_ad2()">
+                    <p id="choose_city_title" draggable="false">please choose your location:</p>
+                    <input type="text" id="province_context" placeholder="please choose province" onclick="get_province()">
+                    <select size="6" id="province_selector" draggable="false" onchange="load_city()">
+                        <option value="beijing">北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="guangdong">广东</option>
+                        <option value="zhejiang">浙江</option>
+                        <option value="tianjing">天津</option>
+                        <option value="hebei">河北</option>
+                        <option value="shanxi">山西</option>
+                        <option value="liaoning">辽宁</option>
+                        <option value="jilin">吉林</option>
+                        <option value="heilongjiang">黑龙江</option>
+                        <option value="jiangsu">江苏</option>
+                        <option value="anhui">安徽</option>
+                        <option value="fujian">福建</option>
+                        <option value="jiangxi">江西</option>
+                        <option value="shandong">山东</option>
+                        <option value="henan">河南</option>
+                        <option value="hubei">湖北</option>
+                        <option value="hunan">湖南</option>
+                        <option value="hainan">海南</option>
+                        <option value="chongqing">重庆</option>
+                        <option value="sichuan">四川</option>
+                        <option value="guizhou">贵州</option>
+                        <option value="yunnan">云南</option>
+                        <option value="shanxii">陕西</option>
+                        <option value="gansu">甘肃</option>
+                        <option value="qinghai">青海</option>
+                        <option value="neimenggu">内蒙古自治区</option>
+                        <option value="xizang">西藏自治区</option>
+                        <option value="guangxi">广西壮族自治区</option>
+                        <option value="ningxia">宁夏回族自治区</option>
+                        <option value="xinjiang">新疆维吾尔族自治区</option>
+                        <option value="taiwan">台湾</option>
+                        <option value="xianggang">香港</option>
+                        <option value="aomen">澳门</option>
+                    </select>
+                    <input type="text" id="city_context" placeholder="please choose city" onclick="get_city()">
+                    <select size="6" id="city_selector" draggable="false" onchange="keep_choose()">
+                    </select>
+                    <a id="select_back" draggable="false" href="" onclick="go_back()">Back</a>
+                    <a id="select_confirm" draggable="false" href="" onclick="go_confirm()">Confirm</a>
+                </div>
+            </div>
+            <span id="state">A+</span>
+            <div class="User" draggable="false">
+                <a id="login_btn" href="" draggable="false" onclick="pop_login()">
+                    Login
+                </a>
+                <div id="under_face">
+                    <div id="resigter_login" draggable="false">
+                        <p id="login_title">Login</p>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="cha_cha()">
+                            <img id="cha_cha" src="http://localhost/image/xx.png" draggable="false">
+                        </a>
+                        <span id="zhanghu">UserName</span>
+                        <input type="text" id="acc" placeholder="UserName" oninput="show_font()">
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_acc()">
+                            <img id="acc_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp2">
+                            <map name="mp2" id="mp2">
+                                <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget account?you can try to contatc me~ QQ:2475469504">
+                            </map>
+                        </a>
+                        <span id="mima">Password</span>
+                        <input type="password" id="psw" placeholder="Password" oninput="show_font2()">
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_psw()">
+                            <img id="psw_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp3">
+                            <map name="mp3" id="mp3">
+                                <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget password?you can try to contatc me~ QQ:2475469504">
+                            </map>
+                        </a>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="login_verify()">
+                            <button id="denglu" value="Login">Login</button>
+                        </a>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="_reset()">
+                            <button id="chongzhi" value="Reset">Reset</button>
+                        </a>   
+                        <a style="width:100%;height:100%;" href="http://localhost/online_disk/Login.html" target="_blank" draggable="false">
+                            <span id="zhuce">Don`t have account?click me to register</span>
+                        </a>
+                    </div>
+                </div>
+                <div id="login_after" draggable="false">
+                    <a id="user_msg" style="width: 30px;height: 30px;text-decoration: none;" href="" target="_blank" draggable="false" onmouseover="show_op()" onmouseleave="hidden_op()" onclick="stop_go1()">
+                        <img id="user_img" src="https://ts1.cn.mm.bing.net/th/id/R-C.afd45ee1583861f7c42cbcb961de5386?rik=TnXP43Q5UtGJyw&riu=http%3a%2f%2fbpic.588ku.com%2felement_origin_min_pic%2f01%2f48%2f75%2f3557443c194e282.jpg&ehk=D36k4SOG6w9QO9N8XywlnCNBQsnaImJKsIZlV%2b35KF4%3d&risl=&pid=ImgRaw&r=0">
+                        <span id="user_name"></span>
+                    </a>
+                    <div id="_op" draggable="false" onmouseover="show_op()" onmouseleave="hidden_op()" onmousemove="clear_color()">
+                        <a style="width: 130px;height:25px;text-decoration: none;" href="" draggable="false" target="_blank" onclick="stop_go1()">
+                            <span id="t1">My Home</span>
+                        </a>
+                        <a style="width: 130px;height:25px;text-decoration: none;" href="" draggable="false" target="_blank" onclick="stop_go2()">
+                            <span id="t2">Modify Information</span>
+                        </a>
+                        <a style="width: 130px;height:25px;text-decoration: none;" href="" draggable="false" onclick="stop_go3()">
+                            <span id="t3">Change User</span>
+                        </a>
+                        <a style="width: 130px;height:25px;text-decoration: none;" href="" draggable="false" onclick="stop_go4()">
+                            <span id="t4">Exit Login</span>
+                        </a>       
+                    </div>
+                    <div id="back_page">
+                        <div id="exit_tip">
+                            <a href="" draggable="false" onclick="cha_cha2()">
+                                <img id="cha_cha2" src="http://localhost/image/xx.png" draggable="false">
+                            </a>
+                            <span id="exit_title">Are you sure exitting your account?</span>
+                            <span id="exit_txt">When you exit later , you will lose function of getting resources</span>
+                            <a href="" draggable="false" onclick="exit_no()">
+                                <input id="_cancel" type="button" value="Cancel">
+                            </a>
+                            <a href="" draggable="false" onclick="exit_yes()">
+                                <input id="_confirm" type="button" value="Confirm">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a id="help_img_" href="" draggable="false" onmouseover="help1()" onmouseleave="help2()" onclick="ask_help()">
+            <img id="help_img" src="/image/helper1.png" draggable="false">
+        </a>
+        <div id="help_g">
+            <div id="helper">
+                <a id="help_x_" href="" draggable="false" onclick="hd_x()">
+                    <img id="help_x" src="/image/xx.png" draggable="false">
+                </a>
+                <span id="ask_type_title">Please choose ask help of type</span>
+                <div id="ask_type">
+                    <input style="margin-left:70px;" id="type1" type="radio" name="option" onclick="cf_type('unlock')">UNLOCK</input>
+                    <input style="margin-left:70px;" id="type2" type="radio" name="option" onclick="cf_type('lock')">LOCK</input>
+                    <input style="margin-left:70px;" id="type3" type="radio" name="option" onclick="cf_type('cancel')">CANCEL</input>
+                </div>
+                <span id="ask_id_">Ask help of UserName:</span>
+                <input id="ask_id" type="txt" maxlength="20">
+                <span id="ask_phone_">Ask help of Phone:</span>
+                <input id="ask_phone" type="number" maxlength="11">
+                <span id="ask_c_">Ask help of Context</span>
+                <textarea id="ask_c" maxlength="200"></textarea>
+                <a id="sm_ask_" href="" draggable="false" onclick="send_ask()">
+                    <button id="sm_ask">submit</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

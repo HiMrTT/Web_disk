@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="always" name="referrer">
+    <meta name="description" content="Welcome to the web_disk search engine registration page, after the registration, you will enjoy a variety of resources">
+    <link rel="icon" sizes="any" mask href="http://localhost/image/online_disk.png">
+    <link rel="stylesheet" href="./css/Login.css">
+    <script src="./js/sha256.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./js/Login.js"></script>
+    <title>Login</title>
+</head>
+<body onload="load_page()">
+    <div class="container">
+        <div class="box-login">
+            <div id="register_block">
+                <span id="register_title">Register</span>
+                <text id="txt">Existing account?</text>
+                <a id="login_btn" href="" draggable="false" onclick="pop_login()">
+                    Login
+                </a>
+                <div id="under_face">
+                    <div id="resigter_login" draggable="false">
+                        <p id="login_title">Login</p>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="cha_cha()">
+                            <img id="cha_cha" src="http://localhost/image/xx.png" draggable="false">
+                        </a>
+                            <span id="zhanghu">UserName</span>
+                        <input type="text" id="acc" placeholder="UserName" oninput="show_font()">
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_acc()">
+                            <img id="acc_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp2">
+                            <map name="mp2" id="mp2">
+                                <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget account?you can try to contatc me~ QQ:2475469504">
+                            </map>
+                        </a>
+                        <span id="mima">Password</span>
+                        <input type="password" id="psw" placeholder="Password" oninput="show_font2()">
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="forget_psw()">
+                            <img id="psw_tip" src="http://localhost/image/tip.png" draggable="false" usemap="#mp3">
+                            <map name="mp3" id="mp3">
+                                <area style="cursor:pointer;outline: none;" shape="rect" coords="0,0,35,35" href="http://localhost/online_disk/search_resource.html" title="Forget password?you can try to contatc me~ QQ:2475469504">
+                            </map>
+                        </a>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="login_verify()">
+                            <button id="denglu" value="Login">Login</button>
+                        </a>
+                        <a style="width:100%;height:100%;" href="" draggable="false" onclick="_reset()">
+                            <button id="chongzhi" value="Reset" type="reset">Reset</button>
+                        </a>   
+                    </div>
+                </div>
+                <form id="zcb" name="zcb" onsubmit="register_state()" method="post">
+                    <span id="cj_yhm_h">UserName</span>
+                    <input name="yhm" type="text" id="cj_yhm" maxlength="14" placeholder="set your UserName" onfocus="_color1()" onblur="check_yhm()" oninput="_color11()">
+                    <span id="input_error_tip1"></span>
+                    <span id="cj_mm_h">PassWord</span>
+                    <input name="mm" type="password" id="cj_mm" maxlength="20" placeholder="set your PassWord" onfocus="_color2()" onblur="check_mm()" oninput="_color22()">
+                    <span id="input_error_tip2"></span>
+                    <span id="qr_mm_h">Confirm PassWord</span>
+                    <input type="password" id="qr_mm" maxlength="20" placeholder="confrim your PassWord" onfocus="_color3()" onblur="check_mm2()" oninput="_color33()">
+                    <span id="input_error_tip3"></span>
+                    <span id="cj_dh_h">Phone</span>
+                    <input name="phone" type="tel" id="cj_dh" maxlength="11" placeholder="input your PhoneNumber" onfocus="_color4()" onblur="check_phone()" oninput="_color44()">
+                    <span id="input_error_tip4"></span>    
+                    <span id="yzm_h">Verity Code</span>
+                    <input type="text" maxlength="5" id="yzm">
+                    <canvas id="draw_yzm" onclick="change_yzm()"></canvas>
+                    <button id="zc" value="Login" type="submit">Register</button>
+                    <button id="cz" value="Reset" type="reset">Reset</button>  
+                </form>
+            </div>
+        </div>
+        <img id="good_word" src="" draggable="false">
+    </div>
+    <script>
+        function load_page(){
+            document.body.style.backgroundImage="url('https://ts1.cn.mm.bing.net/th/id/R-C.bc1135ef7f02153049a30d047fa53520?rik=LzpkRvBfE4T51Q&riu=http%3a%2f%2fimg.pconline.com.cn%2fimages%2fupload%2fupc%2ftx%2fwallpaper%2f1207%2f18%2fc1%2f12378628_1342603613474.jpg&ehk=qSabjLR45H%2fyTKVlpEshMrIVP3VylOXGgSP07NAwiAA%3d&risl=&pid=ImgRaw&r=0')";
+            document.getElementById("good_word").src="http://localhost/image/title.png";
+            code=gain_yzm();
+            yzm_value=code;
+            var cvs=document.getElementById("draw_yzm");
+            var context=cvs.getContext("2d");
+            context.clearRect(0,0,cvs.width,cvs.height);
+            context.font="80px Arial";
+            context.fillText(code,20,100);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="always" name="referrer">
+    <meta name="description" content="Welcome to the web_disk search engine DownLoad page, you can view the download file details and download files through this page">
+    <link rel="icon" sizes="any" mask href="http://localhost/image/online_disk.png">
+    <link rel="stylesheet" href="./css/My_DownLoad.css">
+    <script src="./js/sha256.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./js/My_DownLoad.js"></script>
+    <title>My_DownLoad</title>
+</head>
+<body onload="load_page()">
+    <div class="container">
+        <div id="download_block">
+            <a id="sc_img_" href="" draggable="false" onclick="set_sc()">
+                <img id="sc_img" src="http://localhost/image/jsc1.png" draggable="false">
+            </a>
+            <img id="file_img" src="https://s1.aigei.com/prevfiles/21f8319fbec248cdb5d33b81063df446.png?e=1735488000&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:B8-djBSgyiEND0-hOEn9p8b-8GI=" draggable="false">
+            <span id="file_name"></span>
+            <span id="file_size"></span>
+            <a id="file_url" href="" draggable="false" onclick="file_download()">
+                <span id="txt">download</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
